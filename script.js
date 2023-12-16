@@ -16,6 +16,26 @@ const winPatterns = [
   [3, 4, 5],
   [6, 7, 8],
 ];
+
+//Draw Condition Check
+const checkDraw = () => {
+  // Check if all boxes are filled
+  let allBoxesFilled = true;
+  for (let box of boxes) {
+    if (box.innerText === "") {
+      allBoxesFilled = false;
+      break;
+    }
+  }
+
+  // If all boxes are filled and there's no winner, it's a draw
+  if (allBoxesFilled) {
+    msg.innerText = "It's a draw!";
+    msgContainer.classList.remove("hide");
+    disableBoxes();
+  }
+};
+
 //Reset Game Button
 const resetGame = () => {
   turnO = true;
@@ -27,6 +47,7 @@ boxes.forEach((box) => {
   box.addEventListener("click", () => {
     if (turnO) {
       box.innerText = "O";//playerO
+      box.style.color = "#8A8A4D";
       turnO = false;
     } else {
       box.innerText = "X";//playerX
@@ -35,6 +56,7 @@ boxes.forEach((box) => {
     }
     box.disabled = true;
     checkWinner();
+    checkDraw();
   });
 });
 
